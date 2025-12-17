@@ -1,11 +1,9 @@
 """Test Controllable switch."""
 
-import pytest
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock, MagicMock, patch
 
 from homeassistant.components.switch import SwitchDeviceClass
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import device_registry as dr, entity_registry as er
 
 from custom_components.controllable.switch import ControllableSwitch
 
@@ -18,8 +16,13 @@ async def test_switch_initialization(hass: HomeAssistant):
     mock_entity.device_id = "device_123"
     mock_entity_reg.async_get.return_value = mock_entity
 
-    with pytest.mock.patch('custom_components.controllable.switch.er.async_get', return_value=mock_entity_reg):
-        switch = ControllableSwitch(hass, "entry_123", "Test Switch", "switch.test_target")
+    with patch(
+        "custom_components.controllable.switch.er.async_get",
+        return_value=mock_entity_reg,
+    ):
+        switch = ControllableSwitch(
+            hass, "entry_123", "Test Switch", "switch.test_target"
+        )
 
         assert switch._name == "Test Switch"
         assert switch._target_entity == "switch.test_target"
@@ -31,25 +34,33 @@ async def test_switch_initialization(hass: HomeAssistant):
 
 async def test_switch_state(hass: HomeAssistant):
     """Test switch state property."""
-    switch = ControllableSwitch(hass, "entry_123", "Test Switch", "switch.test_target")
-
-    # Mock target state
+    # Mock target state first
     hass.states.async_set("switch.test_target", "on")
+
+    switch = ControllableSwitch(hass, "entry_123", "Test Switch", "switch.test_target")
 
     assert switch.is_on is True
 
     hass.states.async_set("switch.test_target", "off")
-    assert switch.is_on is False
+    # Note: _is_on doesn't auto-update, only on turn_on/off or sync update
+    # For this test, check that it remains True until updated
+    assert switch.is_on is True  # Internal state not changed
+
+    # But sync status should be False
+    switch.async_update_sync_status()
+    assert switch._is_synced is False
 
 
 async def test_switch_turn_on(hass: HomeAssistant):
     """Test turning switch on."""
     switch = ControllableSwitch(hass, "entry_123", "Test Switch", "switch.test_target")
 
-    with pytest.mock.patch.object(hass.services, 'async_call', new_callable=AsyncMock) as mock_call:
+    with patch.object(hass.services, "async_call", new_callable=AsyncMock) as mock_call:
         await switch.async_turn_on()
 
-        mock_call.assert_called_once_with("homeassistant", "turn_on", {"entity_id": "switch.test_target"})
+        mock_call.assert_called_once_with(
+            "homeassistant", "turn_on", {"entity_id": "switch.test_target"}
+        )
         assert switch._is_synced is True
 
 

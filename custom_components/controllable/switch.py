@@ -6,10 +6,16 @@ from typing import Any
 from homeassistant.components.switch import SwitchEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
-from homeassistant.helpers import device_registry as dr, entity_registry as er
+from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import DOMAIN, CONF_NAME, CONF_TARGET_ENTITY, ATTR_IS_SYNCED, ATTR_TARGET_ENTITY
+from .const import (
+    ATTR_IS_SYNCED,
+    ATTR_TARGET_ENTITY,
+    CONF_NAME,
+    CONF_TARGET_ENTITY,
+    DOMAIN,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -40,13 +46,16 @@ async def async_setup_entry(
 class ControllableSwitch(SwitchEntity):
     """Representation of a Controllable switch."""
 
-    def __init__(self, hass: HomeAssistant, entry_id: str, name: str, target_entity: str) -> None:
+    def __init__(
+        self, hass: HomeAssistant, entry_id: str, name: str, target_entity: str
+    ) -> None:
         """Initialize the switch."""
         self.hass = hass
         self._entry_id = entry_id
         self._name = name
         self._target_entity = target_entity
         self._is_synced = True  # Assume synced initially
+        self._is_on = None  # Internal state, separate from target
         self._attr_unique_id = f"{entry_id}_{name}"
         self._attr_name = name
         self._attr_device_class = "switch"
@@ -57,28 +66,34 @@ class ControllableSwitch(SwitchEntity):
         if target_entry and target_entry.device_id:
             self._attr_device_id = target_entry.device_id
 
+        # Initialize internal state to match target
+        target_state = self.hass.states.get(target_entity)
+        if target_state:
+            self._is_on = target_state.state == "on"
+        else:
+            self._is_on = False
+
     @property
     def is_on(self) -> bool | None:
         """Return true if the switch is on."""
-        target_state = self.hass.states.get(self._target_entity)
-        if target_state:
-            return target_state.state == "on"
-        return None
+        return self._is_on
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the switch on."""
+        self._is_on = True
         await self.hass.services.async_call(
             "homeassistant", "turn_on", {"entity_id": self._target_entity}
         )
-        self._is_synced = True
+        self.async_update_sync_status()
         self.async_write_ha_state()
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         """Turn the switch off."""
+        self._is_on = False
         await self.hass.services.async_call(
             "homeassistant", "turn_off", {"entity_id": self._target_entity}
         )
-        self._is_synced = True
+        self.async_update_sync_status()
         self.async_write_ha_state()
 
     @property
@@ -92,11 +107,10 @@ class ControllableSwitch(SwitchEntity):
     @callback
     def async_update_sync_status(self) -> None:
         """Update the sync status based on current states."""
-        virtual_state = self.is_on
         target_state = self.hass.states.get(self._target_entity)
         if target_state:
             real_state = target_state.state == "on"
-            self._is_synced = virtual_state == real_state
+            self._is_synced = self._is_on == real_state
         else:
             self._is_synced = False
         self.async_write_ha_state()
