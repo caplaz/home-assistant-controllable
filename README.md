@@ -28,31 +28,31 @@ Scenario: You have a smart light controlled by both automation AND manual contro
 Controllable creates an **intermediary virtual switch** that tracks whether manual changes have been made:
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│                      HOME ASSISTANT                              │
-│                                                                  │
-│  ┌────────────────────────────────────────────────────────────┐  │
-│  │              YOUR AUTOMATIONS                              │  │
-│  │       (Bedroom Light Turn On @ Sunrise)                    │  │
-│  └──────────────────────┬─────────────────────────────────────┘  │
-│                         │                                        │
-│                         ▼                                        │
-│  ┌────────────────────────────────────────────────────────────┐  │
-│  │     CONTROLLABLE VIRTUAL SWITCH (Proxy)                    │  │
-│  │                                                            │  │
-│  │  • Passes commands to real light                           │  │
-│  │  • Tracks sync status (is_synced)                          │  │
-│  │  • Blocks automation if manually overridden                │  │
-│  └──────────────────────┬─────────────────────────────────────┘  │
-│                         │                                        │
-│                  ┌──────┴──────┐                                 │
-│                  ▼             ▼                                 │
-│  ┌──────────────────────┐  ┌──────────────────┐                  │
-│  │ REAL LIGHT ENTITY    │  │ MANUAL CONTROL   │                  │
-│  │ (switch.bedroom)     │  │ (Wall Switch)    │                  │
-│  └──────────────────────┘  └──────────────────┘                  │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────┐
+│                  HOME ASSISTANT                    │
+│                                                    │
+│  ┌──────────────────────────────────────────────┐  │
+│  │              YOUR AUTOMATIONS                │  │
+│  │       (Bedroom Light Turn On @ Sunrise)      │  │
+│  └──────────────────────┬───────────────────────┘  │
+│                         │                          │
+│                         ▼                          │
+│  ┌──────────────────────────────────────────────┐  │
+│  │     CONTROLLABLE VIRTUAL SWITCH (Proxy)      │  │
+│  │                                              │  │
+│  │  • Passes commands to real light             │  │
+│  │  • Tracks sync status (is_synced)            │  │
+│  │  • Blocks automation if manually overridden  │  │
+│  └──────────────────────┬───────────────────────┘  │
+│                         │                          │
+│                  ┌──────┴──────┐                   │
+│                  ▼             ▼                   │
+│  ┌──────────────────────┐  ┌────────────────────┐  │
+│  │ REAL LIGHT ENTITY    │  │ MANUAL CONTROL     │  │
+│  │ (switch.bedroom)     │  │ (Wall Switch)      │  │
+│  └──────────────────────┘  └────────────────────┘  │
+│                                                    │
+└────────────────────────────────────────────────────┘
 ```
 
 ### How It Works

@@ -4,8 +4,8 @@ import logging
 from typing import Any
 
 from homeassistant import config_entries
+from homeassistant.config_entries import ConfigFlowResult
 from homeassistant.core import HomeAssistant
-from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import selector
 import voluptuous as vol
 
@@ -19,11 +19,11 @@ class ControllableOptionsFlow(config_entries.OptionsFlow):
 
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         """Initialize options flow."""
-        self.config_entry = config_entry
+        self._config_entry = config_entry
 
     async def async_step_init(
         self, user_input: dict[str, Any] | None = None
-    ) -> FlowResult:
+    ) -> ConfigFlowResult:
         """Manage the options."""
         errors: dict[str, str] = {}
 
@@ -40,11 +40,11 @@ class ControllableOptionsFlow(config_entries.OptionsFlow):
             data_schema=vol.Schema(
                 {
                     vol.Required(
-                        CONF_NAME, default=self.config_entry.data.get(CONF_NAME)
+                        CONF_NAME, default=self._config_entry.data.get(CONF_NAME)
                     ): str,
                     vol.Required(
                         CONF_TARGET_ENTITY,
-                        default=self.config_entry.data.get(CONF_TARGET_ENTITY),
+                        default=self._config_entry.data.get(CONF_TARGET_ENTITY),
                     ): selector.EntitySelector(
                         selector.EntitySelectorConfig(domain=["switch", "light", "fan"])
                     ),

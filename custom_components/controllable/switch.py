@@ -84,10 +84,10 @@ class ControllableSwitch(SwitchEntity):
         self._name = name
         self._target_device = target_device
         self._is_synced = True  # Assume synced initially
-        self._is_on = None  # Internal state, separate from target
+        self._is_on: bool | None = None  # Internal state, separate from target
         self._attr_unique_id = f"{entry_id}_{name}"
         self._attr_name = name
-        self._attr_device_class = "switch"
+        self._attr_device_class = None
 
         # Find target entity on the device
         entity_reg = er.async_get(hass)
@@ -96,6 +96,7 @@ class ControllableSwitch(SwitchEntity):
         target_entity_entry = next(
             (e for e in entities if e.domain in controllable_domains), None
         )
+        self._target_entity: str | None = None
         if target_entity_entry:
             self._target_entity = target_entity_entry.entity_id
             _LOGGER.info(
@@ -186,10 +187,13 @@ class ControllableSwitch(SwitchEntity):
 
         Checks if the internal state matches the target entity's state.
         """
-        target_state = self.hass.states.get(self._target_entity)
-        if target_state:
-            real_state = target_state.state == "on"
-            self._is_synced = self._is_on == real_state
+        if self._target_entity:
+            target_state = self.hass.states.get(self._target_entity)
+            if target_state:
+                real_state = target_state.state == "on"
+                self._is_synced = self._is_on == real_state
+            else:
+                self._is_synced = False
         else:
             self._is_synced = False
         self.async_write_ha_state()

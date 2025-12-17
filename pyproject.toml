@@ -51,6 +51,10 @@ exclude_lines = [
 exclude_dirs = ["tests", ".git", "__pycache__"]
 skips = ["B101", "B601"]  # Skip assert checks and shell usage in subprocess
 
+[tool.mypy]
+mypy_path = "custom_components"
+namespace_packages = true
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = "test_*.py"
