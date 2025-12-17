@@ -51,6 +51,9 @@ exclude_lines = [
 exclude_dirs = ["tests", ".git", "__pycache__"]
 skips = ["B101", "B601"]  # Skip assert checks and shell usage in subprocess
 
+[tool.codespell]
+skip = "custom_components/controllable/translations/*.json"
+
 [tool.mypy]
 mypy_path = "custom_components"
 namespace_packages = true

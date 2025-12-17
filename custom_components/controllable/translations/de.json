@@ -1,0 +1,30 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Steuerbar hinzufügen",
+        "data": {
+          "name": "Name",
+          "target_entity": "Zielentität"
+        }
+      }
+    },
+    "error": {
+      "invalid_target": "Die Zielentität muss ein Schalter, Licht oder Lüfter sein."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Steuerbar konfigurieren",
+        "data": {
+          "name": "Name",
+          "target_entity": "Zielentität"
+        }
+      }
+    },
+    "error": {
+      "invalid_target": "Die Zielentität muss ein Schalter, Licht oder Lüfter sein."
+    }
+  }
+}

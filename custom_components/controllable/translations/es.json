@@ -1,0 +1,30 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Agregar Controllable",
+        "data": {
+          "name": "Nombre",
+          "target_entity": "Entidad Objetivo"
+        }
+      }
+    },
+    "error": {
+      "invalid_target": "La entidad objetivo debe ser un interruptor, luz o ventilador."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configurar Controllable",
+        "data": {
+          "name": "Nombre",
+          "target_entity": "Entidad Objetivo"
+        }
+      }
+    },
+    "error": {
+      "invalid_target": "La entidad objetivo debe ser un interruptor, luz o ventilador."
+    }
+  }
+}

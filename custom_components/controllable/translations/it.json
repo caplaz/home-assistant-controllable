@@ -1,0 +1,30 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Aggiungi Controllabile",
+        "data": {
+          "name": "Nome",
+          "target_entity": "Entità Target"
+        }
+      }
+    },
+    "error": {
+      "invalid_target": "L'entità target deve essere un interruttore, luce o ventilatore."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configura Controllabile",
+        "data": {
+          "name": "Nome",
+          "target_entity": "Entità Target"
+        }
+      }
+    },
+    "error": {
+      "invalid_target": "L'entità target deve essere un interruttore, luce o ventilatore."
+    }
+  }
+}
