@@ -60,7 +60,7 @@ custom_components/controllable/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/controllable.git
+git clone https://github.com/caplaz/home-assistant-controllable.git
 cd controllable
 
 # Set up Python virtual environment

@@ -113,7 +113,7 @@ HACS is the easiest way to install custom integrations.
 1. **Download the Integration**:
 
    ```bash
-   wget https://github.com/yourusername/controllable/archive/refs/tags/v1.0.0.zip
+   wget https://github.com/caplaz/home-assistant-controllable/archive/refs/tags/v1.0.0.zip
    unzip v1.0.0.zip
    ```
 
@@ -292,7 +292,7 @@ The integration intelligently filters devices and entities:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/controllable.git
+   git clone https://github.com/caplaz/home-assistant-controllable.git
    cd controllable
    ```
 
@@ -325,10 +325,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 [hacs]: https://github.com/hacs/integration
 [hacsbadge]: https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge
-[releases-shield]: https://img.shields.io/github/release/yourusername/controllable.svg?style=for-the-badge
-[releases]: https://github.com/yourusername/controllable/releases
-[ci-shield]: https://img.shields.io/github/actions/workflow/status/yourusername/controllable/ci.yml?style=for-the-badge
-[ci]: https://github.com/yourusername/controllable/actions/workflows/ci.yml
-[commits-shield]: https://img.shields.io/github/commit-activity/m/yourusername/controllable?style=for-the-badge
-[commits]: https://github.com/yourusername/controllable/commits/main
-[license-shield]: https://img.shields.io/github/license/yourusername/controllable.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/release/caplaz/home-assistant-controllable.svg?style=for-the-badge
+[releases]: https://github.com/caplaz/home-assistant-controllable/releases
+[ci-shield]: https://img.shields.io/github/actions/workflow/status/caplaz/home-assistant-controllable/ci.yml?style=for-the-badge
+[ci]: https://github.com/caplaz/home-assistant-controllable/actions/workflows/ci.yml
+[commits-shield]: https://img.shields.io/github/commit-activity/m/caplaz/home-assistant-controllable?style=for-the-badge
+[commits]: https://github.com/caplaz/home-assistant-controllable/commits/main
+[license-shield]: https://img.shields.io/github/license/caplaz/home-assistant-controllable.svg?style=for-the-badge
