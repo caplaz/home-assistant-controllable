@@ -1,4 +1,4 @@
-# Controllable
+# Home Assistant Controllable
 
 [![hacs][hacsbadge]][hacs]
 [![GitHub Release][releases-shield]][releases]
@@ -31,26 +31,26 @@ Controllable creates an **intermediary virtual switch** that tracks whether manu
 ┌──────────────────────────────────────────────────────────────────┐
 │                      HOME ASSISTANT                              │
 │                                                                  │
-│  ┌────────────────────────────────────────────────────────────┐ │
-│  │              YOUR AUTOMATIONS                              │ │
-│  │       (Bedroom Light Turn On @ Sunrise)                    │ │
-│  └──────────────────────┬─────────────────────────────────────┘ │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │              YOUR AUTOMATIONS                              │  │
+│  │       (Bedroom Light Turn On @ Sunrise)                    │  │
+│  └──────────────────────┬─────────────────────────────────────┘  │
 │                         │                                        │
 │                         ▼                                        │
-│  ┌────────────────────────────────────────────────────────────┐ │
-│  │     CONTROLLABLE VIRTUAL SWITCH (Proxy)                    │ │
-│  │                                                            │ │
-│  │  • Passes commands to real light                          │ │
-│  │  • Tracks sync status (is_synced)                         │ │
-│  │  • Blocks automation if manually overridden               │ │
-│  └──────────────────────┬─────────────────────────────────────┘ │
+│  ┌────────────────────────────────────────────────────────────┐  │
+│  │     CONTROLLABLE VIRTUAL SWITCH (Proxy)                    │  │
+│  │                                                            │  │
+│  │  • Passes commands to real light                           │  │
+│  │  • Tracks sync status (is_synced)                          │  │
+│  │  • Blocks automation if manually overridden                │  │
+│  └──────────────────────┬─────────────────────────────────────┘  │
 │                         │                                        │
 │                  ┌──────┴──────┐                                 │
 │                  ▼             ▼                                 │
-│  ┌──────────────────────┐  ┌──────────────────┐                │
-│  │ REAL LIGHT ENTITY    │  │ MANUAL CONTROL   │                │
-│  │ (switch.bedroom)     │  │ (Wall Switch)    │                │
-│  └──────────────────────┘  └──────────────────┘                │
+│  ┌──────────────────────┐  ┌──────────────────┐                  │
+│  │ REAL LIGHT ENTITY    │  │ MANUAL CONTROL   │                  │
+│  │ (switch.bedroom)     │  │ (Wall Switch)    │                  │
+│  └──────────────────────┘  └──────────────────┘                  │
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
 ```
