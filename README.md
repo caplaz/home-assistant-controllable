@@ -44,6 +44,7 @@ State Mismatch → is_synced=false → Block Automation
 HACS is the easiest way to install custom integrations.
 
 #### Prerequisites
+
 - [HACS](https://hacs.xyz/) installed in Home Assistant
 - Home Assistant version 2024.1.0 or higher
 
@@ -60,17 +61,20 @@ HACS is the easiest way to install custom integrations.
 ### Method 2: Manual Installation
 
 #### Prerequisites
+
 - Home Assistant version 2024.1.0 or higher
 
 #### Installation Steps
 
 1. **Download the Integration**:
+
    ```bash
    wget https://github.com/yourusername/controllable/archive/refs/tags/v1.0.0.zip
    unzip v1.0.0.zip
    ```
 
 2. **Copy Files**:
+
    ```bash
    cp -r controllable-1.0.0/custom_components/controllable /config/custom_components/
    ```
@@ -118,14 +122,17 @@ Add virtual switches to your dashboard like any other switch:
 ### Common Issues
 
 #### Sync Not Working
+
 - **Cause**: Target entity changed externally
 - **Solution**: Manually sync by turning virtual switch to match real state
 
 #### Entity Unavailable
+
 - **Cause**: Target entity removed or unavailable
 - **Solution**: Reconfigure the controllable with a valid target
 
 #### Automation Still Triggers
+
 - **Cause**: Automation not checking `is_synced`
 - **Solution**: Add condition to check `is_synced` attribute
 
@@ -181,12 +188,14 @@ Use the development script:
 ### Development Setup
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/controllable.git
    cd controllable
    ```
 
 2. Install development dependencies:
+
    ```bash
    pip install -r requirements-dev.txt
    ```
@@ -209,6 +218,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <!-- Badges -->
+
 [hacs]: https://github.com/hacs/integration
 [hacsbadge]: https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge
 [releases-shield]: https://img.shields.io/github/release/yourusername/controllable.svg?style=for-the-badge
