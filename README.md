@@ -28,31 +28,31 @@ Scenario: You have a smart light controlled by both automation AND manual contro
 Controllable creates an **intermediary virtual switch** that tracks whether manual changes have been made:
 
 ```
-┌─────────────────────────────────────────────────────────────────────┐
-│                        HOME ASSISTANT                               │
-│                                                                     │
-│  ┌──────────────────────────────────────────────────────────────┐ │
-│  │                   YOUR AUTOMATIONS                           │ │
-│  │         (Bedroom Light Turn On @ Sunrise)                   │ │
-│  └────────────────────────┬─────────────────────────────────────┘ │
-│                           │                                        │
-│                           ▼                                        │
-│  ┌──────────────────────────────────────────────────────────────┐ │
-│  │         CONTROLLABLE VIRTUAL SWITCH (Proxy)                 │ │
-│  │                                                              │ │
-│  │  • Passes commands to real light                            │ │
-│  │  • Tracks sync status (is_synced)                           │ │
-│  │  • Blocks automation if manually overridden                 │ │
-│  └────────────────────────┬─────────────────────────────────────┘ │
-│                           │                                        │
-│                    ┌──────┴──────┐                                 │
-│                    ▼             ▼                                 │
-│  ┌───────────────────────┐  ┌──────────────────┐                 │
-│  │  REAL LIGHT ENTITY    │  │  MANUAL CONTROL  │                 │
-│  │   (switch.bedroom)    │  │   (Wall Switch)  │                 │
-│  └───────────────────────┘  └──────────────────┘                 │
-│                                                                     │
-└─────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│                      HOME ASSISTANT                              │
+│                                                                  │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │              YOUR AUTOMATIONS                              │ │
+│  │       (Bedroom Light Turn On @ Sunrise)                    │ │
+│  └──────────────────────┬─────────────────────────────────────┘ │
+│                         │                                        │
+│                         ▼                                        │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │     CONTROLLABLE VIRTUAL SWITCH (Proxy)                    │ │
+│  │                                                            │ │
+│  │  • Passes commands to real light                          │ │
+│  │  • Tracks sync status (is_synced)                         │ │
+│  │  • Blocks automation if manually overridden               │ │
+│  └──────────────────────┬─────────────────────────────────────┘ │
+│                         │                                        │
+│                  ┌──────┴──────┐                                 │
+│                  ▼             ▼                                 │
+│  ┌──────────────────────┐  ┌──────────────────┐                │
+│  │ REAL LIGHT ENTITY    │  │ MANUAL CONTROL   │                │
+│  │ (switch.bedroom)     │  │ (Wall Switch)    │                │
+│  └──────────────────────┘  └──────────────────┘                │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 ### How It Works
@@ -67,12 +67,12 @@ Controllable creates an **intermediary virtual switch** that tracks whether manu
 
 ## Key Features
 
-✅ **Virtual Proxy Control** - Switches control real entities while tracking sync status
-✅ **Sync Tracking** - `is_synced` attribute shows if manual override occurred
-✅ **Automation Protection** - Prevents automations from overriding manual changes
-✅ **Device Integration** - Virtual switch grouped with target device
-✅ **Event-Driven** - Real-time sync monitoring with zero polling
-✅ **Simple Setup** - User-friendly config flow in Home Assistant UI
+- ✅ **Virtual Proxy Control** - Switches control real entities while tracking sync status
+- ✅ **Sync Tracking** - `is_synced` attribute shows if manual override occurred
+- ✅ **Automation Protection** - Prevents automations from overriding manual changes
+- ✅ **Device Integration** - Virtual switch grouped with target device
+- ✅ **Event-Driven** - Real-time sync monitoring with zero polling
+- ✅ **Simple Setup** - User-friendly config flow in Home Assistant UI
 
 ## Who Is This For?
 
