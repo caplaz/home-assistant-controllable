@@ -7,7 +7,7 @@ associated with devices, controlling their main controllable entities.
 import logging
 from typing import Any
 
-from homeassistant.components.switch import SwitchEntity
+from homeassistant.components.switch import SwitchDeviceClass, SwitchEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import device_registry as dr, entity_registry as er
@@ -87,7 +87,7 @@ class ControllableSwitch(SwitchEntity):
         self._is_on: bool | None = None  # Internal state, separate from target
         self._attr_unique_id = f"{entry_id}_{name}"
         self._attr_name = name
-        self._attr_device_class = None
+        self._attr_device_class = SwitchDeviceClass.SWITCH
 
         # Find target entity on the device
         entity_reg = er.async_get(hass)
