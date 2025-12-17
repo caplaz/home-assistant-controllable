@@ -1,0 +1,88 @@
+# Home Assistant Development Configuration
+# This is a basic configuration for development of the Controllable integration
+
+# Basic settings
+homeassistant:
+  name: Home Assistant Dev
+  latitude: 37.7749
+  longitude: -122.4194
+  elevation: 10
+  unit_system: imperial
+  temperature_unit: F
+  time_zone: America/Los_Angeles
+
+# Enable logging
+logger:
+  default: info
+  logs:
+    custom_components.controllable: debug
+
+# HTTP configuration
+http:
+  server_host: 0.0.0.0
+  server_port: 8123
+
+# Frontend
+frontend:
+
+# API
+api:
+
+# Basic integrations for testing
+switch:
+  - platform: template
+    switches:
+      test_switch:
+        friendly_name: "Test Switch"
+        value_template: "{{ states('input_boolean.test_boolean') }}"
+        turn_on:
+          service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.test_boolean
+        turn_off:
+          service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.test_boolean
+
+input_boolean:
+  test_boolean:
+    name: Test Boolean
+    initial: off
+
+  test_light_boolean:
+    name: Test Light Boolean
+    initial: off
+
+  test_fan_boolean:
+    name: Test Fan Boolean
+    initial: off
+
+light:
+  - platform: template
+    lights:
+      test_light:
+        friendly_name: "Test Light"
+        value_template: "{{ states('input_boolean.test_light_boolean') }}"
+        turn_on:
+          service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.test_light_boolean
+        turn_off:
+          service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.test_light_boolean
+
+fan:
+  - platform: template
+    fans:
+      test_fan:
+        friendly_name: "Test Fan"
+        value_template: "{{ states('input_boolean.test_fan_boolean') }}"
+        turn_on:
+          service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.test_fan_boolean
+        turn_off:
+          service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.test_fan_boolean
