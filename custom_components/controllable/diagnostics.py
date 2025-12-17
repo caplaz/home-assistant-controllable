@@ -24,10 +24,12 @@ async def async_get_config_entry_diagnostics(
     # Get entities for this config entry
     for entity_id, state in hass.states.async_all():
         if entity_id.startswith(f"{DOMAIN}."):
-            diagnostics["entities"].append({
-                "entity_id": entity_id,
-                "state": state.state,
-                "attributes": dict(state.attributes),
-            })
+            diagnostics["entities"].append(
+                {
+                    "entity_id": entity_id,
+                    "state": state.state,
+                    "attributes": dict(state.attributes),
+                }
+            )
 
     return diagnostics

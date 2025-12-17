@@ -1,36 +1,52 @@
-"""Config flow for Controllable integration."""
+"""Config flow for Controllable integration.
+
+Handles the setup flow for creating controllable switches that control
+entities on selected devices.
+"""
 
 import logging
 from typing import Any
 
-import voluptuous as vol
-
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
-from homeassistant.helpers import selector
+from homeassistant.helpers import device_registry as dr, entity_registry as er, selector
+import voluptuous as vol
 
-from .const import DOMAIN, CONF_NAME, CONF_TARGET_ENTITY
+from .const import CONF_NAME, CONF_TARGET_DEVICE, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
 
 class ControllableConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for Controllable."""
+    """Handle a config flow for Controllable.
+
+    This flow allows users to select a device and create a controllable
+    switch that controls the main controllable entity on that device.
+    """
 
     VERSION = 1
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
-        """Handle the initial step."""
+        """Handle the initial step.
+
+        Prompts the user to enter a name and select a target device.
+
+        Args:
+            user_input: The user input from the form.
+
+        Returns:
+            The next flow step result.
+        """
         errors: dict[str, str] = {}
 
         if user_input is not None:
-            # Validate target entity
-            target_entity = user_input[CONF_TARGET_ENTITY]
-            if not self._is_valid_target(self.hass, target_entity):
-                errors[CONF_TARGET_ENTITY] = "invalid_target"
+            # Validate target device
+            target_device = user_input[CONF_TARGET_DEVICE]
+            if not self._is_valid_device(self.hass, target_device):
+                errors[CONF_TARGET_DEVICE] = "invalid_device"
             else:
                 return self.async_create_entry(
                     title=user_input[CONF_NAME],
@@ -42,18 +58,31 @@ class ControllableConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=vol.Schema(
                 {
                     vol.Required(CONF_NAME): str,
-                    vol.Required(CONF_TARGET_ENTITY): selector.EntitySelector(
-                        selector.EntitySelectorConfig(domain=["switch", "light", "fan"])
-                    ),
+                    vol.Required(CONF_TARGET_DEVICE): selector.DeviceSelector(),
                 }
             ),
             errors=errors,
         )
 
-    def _is_valid_target(self, hass: HomeAssistant, entity_id: str) -> bool:
-        """Check if the target entity supports turn_on/turn_off."""
-        state = hass.states.get(entity_id)
-        if not state:
+    def _is_valid_device(self, hass: HomeAssistant, device_id: str) -> bool:
+        """Check if the device exists and has controllable entities.
+
+        A device is valid if it exists and has at least one entity
+        in the switch, light, or fan domains.
+
+        Args:
+            hass: The Home Assistant instance.
+            device_id: The device ID to validate.
+
+        Returns:
+            True if the device is valid.
+        """
+        device_reg = dr.async_get(hass)
+        device = device_reg.async_get(device_id)
+        if not device:
             return False
-        domain = entity_id.split(".")[0]
-        return domain in ["switch", "light", "fan"]
+
+        entity_reg = er.async_get(hass)
+        entities = entity_reg.entities.get_entries_for_device_id(device_id)
+        controllable_domains = {"switch", "light", "fan"}
+        return any(entity.domain in controllable_domains for entity in entities)

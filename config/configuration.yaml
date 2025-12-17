@@ -1,6 +1,6 @@
 # Home Assistant Development Configuration
 # This is a basic configuration for development of the Controllable integration
-
+---
 # Basic settings
 homeassistant:
   name: Home Assistant Dev
@@ -47,15 +47,15 @@ switch:
 input_boolean:
   test_boolean:
     name: Test Boolean
-    initial: off
+    initial: false
 
   test_light_boolean:
     name: Test Light Boolean
-    initial: off
+    initial: false
 
   test_fan_boolean:
     name: Test Fan Boolean
-    initial: off
+    initial: false
 
 light:
   - platform: template
@@ -86,3 +86,6 @@ fan:
           service: input_boolean.turn_off
           data:
             entity_id: input_boolean.test_fan_boolean
+
+# Demo mode for testing devices
+demo:

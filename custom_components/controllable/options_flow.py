@@ -3,14 +3,13 @@
 import logging
 from typing import Any
 
-import voluptuous as vol
-
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import selector
+import voluptuous as vol
 
-from .const import DOMAIN, CONF_NAME, CONF_TARGET_ENTITY
+from .const import CONF_NAME, CONF_TARGET_ENTITY
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -40,8 +39,13 @@ class ControllableOptionsFlow(config_entries.OptionsFlow):
             step_id="init",
             data_schema=vol.Schema(
                 {
-                    vol.Required(CONF_NAME, default=self.config_entry.data.get(CONF_NAME)): str,
-                    vol.Required(CONF_TARGET_ENTITY, default=self.config_entry.data.get(CONF_TARGET_ENTITY)): selector.EntitySelector(
+                    vol.Required(
+                        CONF_NAME, default=self.config_entry.data.get(CONF_NAME)
+                    ): str,
+                    vol.Required(
+                        CONF_TARGET_ENTITY,
+                        default=self.config_entry.data.get(CONF_TARGET_ENTITY),
+                    ): selector.EntitySelector(
                         selector.EntitySelectorConfig(domain=["switch", "light", "fan"])
                     ),
                 }
