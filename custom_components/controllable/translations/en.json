@@ -1,0 +1,30 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add Controllable",
+        "data": {
+          "name": "Name",
+          "target_entity": "Target Entity"
+        }
+      }
+    },
+    "error": {
+      "invalid_target": "Target entity must be a switch, light, or fan."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configure Controllable",
+        "data": {
+          "name": "Name",
+          "target_entity": "Target Entity"
+        }
+      }
+    },
+    "error": {
+      "invalid_target": "Target entity must be a switch, light, or fan."
+    }
+  }
+}

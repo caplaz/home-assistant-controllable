@@ -1,0 +1,15 @@
+{
+  "domain": "controllable",
+  "name": "Controllable",
+  "version": "1.0.0",
+  "codeowners": ["@yourusername"],
+  "documentation": "https://github.com/yourusername/controllable",
+  "issue_tracker": "https://github.com/yourusername/controllable/issues",
+  "integration_type": "helper",
+  "iot_class": "calculated",
+  "quality_scale": "bronze",
+  "config_flow": true,
+  "single_config_entry": false,
+  "requirements": [],
+  "dependencies": []
+}
