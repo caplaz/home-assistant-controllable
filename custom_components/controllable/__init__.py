@@ -43,7 +43,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         """
         entity_id = event.data.get("entity_id")
         if entity_id in [
-            data[CONF_TARGET_ENTITY] for data in hass.data[DOMAIN].values()
+            data[CONF_TARGET_ENTITY]
+            for data in hass.data[DOMAIN].values()
+            if CONF_TARGET_ENTITY in data
         ]:
             # Notify switches to update sync status
             event_name = f"{DOMAIN}_target_changed"
