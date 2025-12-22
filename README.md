@@ -113,14 +113,14 @@ HACS is the easiest way to install custom integrations.
 1. **Download the Integration**:
 
    ```bash
-   wget https://github.com/caplaz/home-assistant-controllable/archive/refs/tags/v1.0.0.zip
-   unzip v1.0.0.zip
+   wget https://github.com/caplaz/home-assistant-controllable/archive/refs/tags/v1.0.1.zip
+   unzip v1.0.1.zip
    ```
 
 2. **Copy Files**:
 
    ```bash
-   cp -r controllable-1.0.0/custom_components/controllable /config/custom_components/
+   cp -r controllable-1.0.1/custom_components/controllable /config/custom_components/
    ```
 
 3. **Restart Home Assistant**:

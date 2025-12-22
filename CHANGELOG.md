@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 - 2025-12-22
+
+### Fixed
+
+- KeyError: 'target_entity' when handling state changes for config entries missing the target_entity key
+
 ## 1.0.0 - 2025-12-17
 
 ### Added

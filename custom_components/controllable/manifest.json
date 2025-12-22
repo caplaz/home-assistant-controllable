@@ -1,7 +1,7 @@
 {
   "domain": "controllable",
   "name": "Controllable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "codeowners": ["@caplaz"],
   "documentation": "https://github.com/caplaz/home-assistant-controllable",
   "issue_tracker": "https://github.com/caplaz/home-assistant-controllable/issues",
