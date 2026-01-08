@@ -3,6 +3,7 @@
     "step": {
       "user": {
         "title": "Aggiungi Controllabile",
+        "description": "Configura un'entità controllabile",
         "data": {
           "name": "Nome",
           "target_entity": "Entità Target"

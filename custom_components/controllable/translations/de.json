@@ -3,6 +3,7 @@
     "step": {
       "user": {
         "title": "Steuerbar hinzufügen",
+        "description": "Eine steuerbare Entität konfigurieren",
         "data": {
           "name": "Name",
           "target_entity": "Zielentität"

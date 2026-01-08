@@ -1,15 +1,15 @@
 {
   "domain": "controllable",
   "name": "Controllable",
-  "version": "1.0.1",
   "codeowners": ["@caplaz"],
+  "config_flow": true,
+  "dependencies": [],
   "documentation": "https://github.com/caplaz/home-assistant-controllable",
-  "issue_tracker": "https://github.com/caplaz/home-assistant-controllable/issues",
   "integration_type": "helper",
   "iot_class": "calculated",
+  "issue_tracker": "https://github.com/caplaz/home-assistant-controllable/issues",
   "quality_scale": "bronze",
-  "config_flow": true,
-  "single_config_entry": false,
   "requirements": [],
-  "dependencies": []
+  "single_config_entry": false,
+  "version": "1.0.1"
 }
